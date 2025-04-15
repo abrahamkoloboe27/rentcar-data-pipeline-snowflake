@@ -119,11 +119,11 @@ SNOWFLAKE_WAREHOUSE="votre-warehouse"
 ### A faire avant de lancer les scripts
 - Créer les tables dans la base de données PostgreSQL
   - Installer postgresql avec docker :
-    ```bash
+    ```ini
     docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
     ```
   - Créer les tables dans la base de données PostgreSQL
-    ```bash
+    ```ini
     docker exec -it postgres psql -U postgres 
     psql -f postgres-init.sql -d rentcar
     ```
@@ -135,7 +135,7 @@ SNOWFLAKE_WAREHOUSE="votre-warehouse"
   - Créer les tables dans Snowflake à l'aide d'un worksheet: Utiliser le fichier `snowflake-init.sql` 
 ### Exécution
 
-```bash
+```ini
 # Data Generation (PostgreSQL)
 python data_generation.py
 # ETL Pipeline : Bronze -> Silver -> Gold 
