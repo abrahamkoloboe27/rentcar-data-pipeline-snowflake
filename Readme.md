@@ -116,6 +116,23 @@ SNOWFLAKE_SCHEMA="votre-schema"
 SNOWFLAKE_WAREHOUSE="votre-warehouse"
 ```
 
+### A faire avant de lancer les scripts
+- Créer les tables dans la base de données PostgreSQL
+  - Installer postgresql avec docker :
+    ```bash
+    docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
+    ```
+  - Créer les tables dans la base de données PostgreSQL
+    ```bash
+    docker exec -it postgres psql -U postgres 
+    psql -f postgres-init.sql -d rentcar
+    ```
+- Créer les tables dans Snowflake
+  - Créer un compte Snowflake
+  - Créer une base de données
+  - Créer un schéma
+  - Créer un warehouse
+  - Créer les tables dans Snowflake à l'aide d'un worksheet: Utiliser le fichier `snowflake-init.sql` 
 ### Exécution
 
 ```bash
