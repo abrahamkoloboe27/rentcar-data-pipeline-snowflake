@@ -1,0 +1,750 @@
+2025-04-14 15:46:01,744 - INFO - Création du dossier bronze
+2025-04-14 15:46:01,745 - INFO - Création du dossier silver
+2025-04-14 15:46:01,745 - INFO - Création du dossier gold
+2025-04-14 15:46:01,903 - INFO - === Démarrage du pipeline ETL ===
+2025-04-14 15:46:01,903 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-14 15:46:01,938 - ERROR - Échec de l'extraction: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 6543 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 6543 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-14 15:46:01,938 - ERROR - Échec critique du pipeline: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 6543 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 6543 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-14 15:46:16,537 - INFO - Création du dossier bronze
+2025-04-14 15:46:16,538 - INFO - Création du dossier silver
+2025-04-14 15:46:16,538 - INFO - Création du dossier gold
+2025-04-14 15:46:16,598 - INFO - === Démarrage du pipeline ETL ===
+2025-04-14 15:46:16,598 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-14 15:46:17,385 - INFO - Extraction des clients réussie
+2025-04-14 15:46:17,459 - INFO - Extraction des véhicules réussie
+2025-04-14 15:46:17,464 - INFO - Extraction des branches réussie
+2025-04-14 15:46:17,521 - INFO - Extraction des locations réussie
+2025-04-14 15:46:17,562 - INFO - Extraction des factures réussie
+2025-04-14 15:46:17,570 - INFO - Extraction des entretiens réussie
+2025-04-14 15:46:17,753 - INFO - Clients sauvegardés au format parquet
+2025-04-14 15:46:17,767 - INFO - Véhicules sauvegardés au format parquet
+2025-04-14 15:46:17,770 - INFO - Branches sauvegardées au format parquet
+2025-04-14 15:46:17,777 - INFO - Locations sauvegardées au format parquet
+2025-04-14 15:46:17,785 - INFO - Factures sauvegardées au format parquet
+2025-04-14 15:46:17,787 - INFO - Entretiens sauvegardés au format parquet
+2025-04-14 15:46:17,787 - INFO - Début de la transformation vers le schéma en étoile
+2025-04-14 15:46:17,787 - INFO - Transformation de la dimension Client
+2025-04-14 15:46:17,821 - INFO - Dimension Client transformée :    client_key  client_id      nom  ...             telephone                               adresse              date_creation
+0           1          1   Gaudin  ...  +33 (0)5 17 02 14 82  8, avenue Marthe Fernandez, Kinshasa 2020-05-10 12:42:07.999091
+1           2          2  Vincent  ...  +33 (0)2 29 42 45 57          16, chemin Brunet, Mogadishu 2020-05-14 12:42:07.999091
+2           3          3    Colin  ...  +33 (0)3 62 12 08 82              avenue Delahaye, Cotonou 2020-04-15 12:42:07.999091
+3           4          4    Peron  ...        01 55 43 71 57        108, rue de Cohen, Ouagadougou 2020-04-17 12:42:07.999091
+4           5          5    Munoz  ...  +33 (0)4 32 03 01 91    570, rue Éléonore Maurice, Abidjan 2020-03-27 12:42:07.999091
+
+[5 rows x 8 columns] 
+2025-04-14 15:46:17,914 - INFO - Dimension Client sauvegardée au format parquet
+2025-04-14 15:46:17,920 - INFO - Dimension Véhicule transformée :    vehicule_key  vehicule_id     type    marque         modele  annee_fabrication immatriculation       statut
+0             1            1  voiture     Chery     Chery RO55               2015       VA-316-DM  en location
+1             2            2     moto   Triumph   Triumph pZ24               2021       CB-615-IC  en location
+2             3            3  voiture     Chery     Chery pi69               2015      109-HHZ-55  en location
+3             4            4     vélo      Trek      Trek fw03               2022      048-RVI-45  en location
+4             5            5     moto  Kawasaki  Kawasaki ZE71               2022       SL-827-YY  en location 
+2025-04-14 15:46:17,930 - INFO - Dimension Véhicule sauvegardée au format parquet
+2025-04-14 15:46:17,934 - INFO - Dimension Branch transformée :    branch_key  branch_id                 nom localisation
+0           1          1      Agence Abidjan      Abidjan
+1           2          2      Agence Cotonou      Cotonou
+2           3          3   Agence Porto-Novo   Porto-Novo
+3           4          4  Agence Brazzaville  Brazzaville
+4           5          5        Agence Alger        Alger 
+2025-04-14 15:46:17,935 - INFO - Dimension Branch sauvegardée au format parquet
+2025-04-14 15:46:17,938 - INFO - Génération de la dimension Date 2020-03-17 12:42:07.999091 à 2025-04-14 12:42:14.873326 
+2025-04-14 15:46:18,119 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-14 15:46:18,126 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-14 15:46:18,131 - INFO - Dimension Maintenance transformée :    entretien_id  vehicule_key  date_key_entretien      cout type_entretien
+0             1          9463            20200416  26280.47     réparation
+1             2          7050            20200429  46190.49      nettoyage
+2             3          8048            20200430  43322.05      préventif
+3             4          2632            20200502  45167.00        vidange
+4             5          4356            20200519  38565.38        vidange 
+2025-04-14 15:46:18,132 - INFO - Dimension Maintenance sauvegardée au format parquet
+2025-04-14 15:46:18,133 - INFO - Initialisation du chargement Snowflake
+2025-04-14 15:46:18,206 - INFO - Connexion Snowflake établie
+2025-04-14 15:46:18,206 - INFO - Chargement de la table dim_client ...
+2025-04-14 15:46:18,207 - INFO - Snowflake Connector for Python Version: 3.14.0, Python Version: 3.10.16, Platform: macOS-15.4-arm64-arm-64bit
+2025-04-14 15:46:18,207 - INFO - Connecting to GLOBAL Snowflake domain
+2025-04-14 15:46:18,207 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2025-04-14 15:46:24,835 - ERROR - Échec du chargement Snowflake: Could not reflect: requested table(s) not available in Engine(snowflake://ABRAHAMKOLOBOE27:***@SBUQXXL-JB23633/LOCATION_ETL/LOCATION?role=ACCOUNTADMIN&warehouse=COMPUTE_WH): (DIM_CLIENT)
+2025-04-14 15:46:24,836 - INFO - Nettoyage des ressources Snowflake
+2025-04-14 15:46:24,836 - INFO - closed
+2025-04-14 15:46:24,984 - INFO - No async queries seem to be running, deleting session
+2025-04-14 15:46:25,147 - ERROR - Échec critique du pipeline: Could not reflect: requested table(s) not available in Engine(snowflake://ABRAHAMKOLOBOE27:***@SBUQXXL-JB23633/LOCATION_ETL/LOCATION?role=ACCOUNTADMIN&warehouse=COMPUTE_WH): (DIM_CLIENT)
+2025-04-14 16:04:26,828 - INFO - Création du dossier bronze
+2025-04-14 16:04:26,833 - INFO - Création du dossier silver
+2025-04-14 16:04:26,834 - INFO - Création du dossier gold
+2025-04-14 16:04:27,067 - INFO - === Démarrage du pipeline ETL ===
+2025-04-14 16:04:27,067 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-14 16:04:28,137 - INFO - Extraction des clients réussie
+2025-04-14 16:04:28,242 - INFO - Extraction des véhicules réussie
+2025-04-14 16:04:28,261 - INFO - Extraction des branches réussie
+2025-04-14 16:04:28,374 - INFO - Extraction des locations réussie
+2025-04-14 16:04:28,455 - INFO - Extraction des factures réussie
+2025-04-14 16:04:28,467 - INFO - Extraction des entretiens réussie
+2025-04-14 16:04:32,983 - INFO - Clients sauvegardés au format parquet
+2025-04-14 16:04:32,997 - INFO - Véhicules sauvegardés au format parquet
+2025-04-14 16:04:33,000 - INFO - Branches sauvegardées au format parquet
+2025-04-14 16:04:33,010 - INFO - Locations sauvegardées au format parquet
+2025-04-14 16:04:33,017 - INFO - Factures sauvegardées au format parquet
+2025-04-14 16:04:33,019 - INFO - Entretiens sauvegardés au format parquet
+2025-04-14 16:04:33,019 - INFO - Début de la transformation vers le schéma en étoile
+2025-04-14 16:04:33,019 - INFO - Transformation de la dimension Client
+2025-04-14 16:04:33,061 - INFO - Dimension Client transformée :    client_key  client_id      nom  ...             telephone                               adresse              date_creation
+0           1          1   Gaudin  ...  +33 (0)5 17 02 14 82  8, avenue Marthe Fernandez, Kinshasa 2020-05-10 12:42:07.999091
+1           2          2  Vincent  ...  +33 (0)2 29 42 45 57          16, chemin Brunet, Mogadishu 2020-05-14 12:42:07.999091
+2           3          3    Colin  ...  +33 (0)3 62 12 08 82              avenue Delahaye, Cotonou 2020-04-15 12:42:07.999091
+3           4          4    Peron  ...        01 55 43 71 57        108, rue de Cohen, Ouagadougou 2020-04-17 12:42:07.999091
+4           5          5    Munoz  ...  +33 (0)4 32 03 01 91    570, rue Éléonore Maurice, Abidjan 2020-03-27 12:42:07.999091
+
+[5 rows x 8 columns] 
+2025-04-14 16:04:33,144 - INFO - Dimension Client sauvegardée au format parquet
+2025-04-14 16:04:33,150 - INFO - Dimension Véhicule transformée :    vehicule_key  vehicule_id     type    marque         modele  annee_fabrication immatriculation       statut
+0             1            1  voiture     Chery     Chery RO55               2015       VA-316-DM  en location
+1             2            2     moto   Triumph   Triumph pZ24               2021       CB-615-IC  en location
+2             3            3  voiture     Chery     Chery pi69               2015      109-HHZ-55  en location
+3             4            4     vélo      Trek      Trek fw03               2022      048-RVI-45  en location
+4             5            5     moto  Kawasaki  Kawasaki ZE71               2022       SL-827-YY  en location 
+2025-04-14 16:04:33,163 - INFO - Dimension Véhicule sauvegardée au format parquet
+2025-04-14 16:04:33,167 - INFO - Dimension Branch transformée :    branch_key  branch_id                 nom localisation
+0           1          1      Agence Abidjan      Abidjan
+1           2          2      Agence Cotonou      Cotonou
+2           3          3   Agence Porto-Novo   Porto-Novo
+3           4          4  Agence Brazzaville  Brazzaville
+4           5          5        Agence Alger        Alger 
+2025-04-14 16:04:33,169 - INFO - Dimension Branch sauvegardée au format parquet
+2025-04-14 16:04:33,172 - INFO - Génération de la dimension Date 2020-03-17 12:42:07.999091 à 2025-04-14 12:42:14.873326 
+2025-04-14 16:04:33,344 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-14 16:04:33,351 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-14 16:04:33,356 - INFO - Dimension Maintenance transformée :    entretien_id  vehicule_key  date_key_entretien      cout type_entretien
+0             1          9463            20200416  26280.47     réparation
+1             2          7050            20200429  46190.49      nettoyage
+2             3          8048            20200430  43322.05      préventif
+3             4          2632            20200502  45167.00        vidange
+4             5          4356            20200519  38565.38        vidange 
+2025-04-14 16:04:33,358 - INFO - Dimension Maintenance sauvegardée au format parquet
+2025-04-14 16:04:33,359 - INFO - Initialisation du chargement Snowflake
+2025-04-14 16:04:33,430 - INFO - Connexion Snowflake établie
+2025-04-14 16:04:33,430 - INFO - Chargement de la table dim_client ...
+2025-04-14 16:04:33,521 - INFO - Snowflake Connector for Python Version: 3.14.0, Python Version: 3.10.16, Platform: macOS-15.4-arm64-arm-64bit
+2025-04-14 16:04:33,521 - INFO - Connecting to GLOBAL Snowflake domain
+2025-04-14 16:04:33,521 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2025-04-14 16:04:35,231 - ERROR - Échec du chargement Snowflake: (snowflake.connector.errors.InterfaceError) 250003 (08001): None: 404 Not Found: post https://JB23633.snowflakecomputing.com:443/session/v1/login-request?request_id=93789319-1223-44fe-a6a2-10adc0092677&databaseName=LOCATION_ETL&schemaName=LOCATION&warehouse=COMPUTE_WH&roleName=ACCOUNTADMIN&request_guid=27d06ffa-d099-47e9-b38b-bae99f80f3a3
+(Background on this error at: https://sqlalche.me/e/20/rvf5)
+2025-04-14 16:04:35,231 - INFO - Nettoyage des ressources Snowflake
+2025-04-14 16:04:35,231 - ERROR - Échec critique du pipeline: (snowflake.connector.errors.InterfaceError) 250003 (08001): None: 404 Not Found: post https://JB23633.snowflakecomputing.com:443/session/v1/login-request?request_id=93789319-1223-44fe-a6a2-10adc0092677&databaseName=LOCATION_ETL&schemaName=LOCATION&warehouse=COMPUTE_WH&roleName=ACCOUNTADMIN&request_guid=27d06ffa-d099-47e9-b38b-bae99f80f3a3
+(Background on this error at: https://sqlalche.me/e/20/rvf5)
+2025-04-14 16:06:31,681 - INFO - Création du dossier bronze
+2025-04-14 16:06:31,681 - INFO - Création du dossier silver
+2025-04-14 16:06:31,681 - INFO - Création du dossier gold
+2025-04-14 16:06:31,755 - INFO - === Démarrage du pipeline ETL ===
+2025-04-14 16:06:31,755 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-14 16:06:32,397 - INFO - Extraction des clients réussie
+2025-04-14 16:06:32,466 - INFO - Extraction des véhicules réussie
+2025-04-14 16:06:32,472 - INFO - Extraction des branches réussie
+2025-04-14 16:06:32,528 - INFO - Extraction des locations réussie
+2025-04-14 16:06:32,568 - INFO - Extraction des factures réussie
+2025-04-14 16:06:32,573 - INFO - Extraction des entretiens réussie
+2025-04-14 16:06:32,730 - INFO - Clients sauvegardés au format parquet
+2025-04-14 16:06:32,744 - INFO - Véhicules sauvegardés au format parquet
+2025-04-14 16:06:32,747 - INFO - Branches sauvegardées au format parquet
+2025-04-14 16:06:32,755 - INFO - Locations sauvegardées au format parquet
+2025-04-14 16:06:32,764 - INFO - Factures sauvegardées au format parquet
+2025-04-14 16:06:32,766 - INFO - Entretiens sauvegardés au format parquet
+2025-04-14 16:06:32,766 - INFO - Début de la transformation vers le schéma en étoile
+2025-04-14 16:06:32,766 - INFO - Transformation de la dimension Client
+2025-04-14 16:06:32,801 - INFO - Dimension Client transformée :    client_key  client_id      nom  ...             telephone                               adresse              date_creation
+0           1          1   Gaudin  ...  +33 (0)5 17 02 14 82  8, avenue Marthe Fernandez, Kinshasa 2020-05-10 12:42:07.999091
+1           2          2  Vincent  ...  +33 (0)2 29 42 45 57          16, chemin Brunet, Mogadishu 2020-05-14 12:42:07.999091
+2           3          3    Colin  ...  +33 (0)3 62 12 08 82              avenue Delahaye, Cotonou 2020-04-15 12:42:07.999091
+3           4          4    Peron  ...        01 55 43 71 57        108, rue de Cohen, Ouagadougou 2020-04-17 12:42:07.999091
+4           5          5    Munoz  ...  +33 (0)4 32 03 01 91    570, rue Éléonore Maurice, Abidjan 2020-03-27 12:42:07.999091
+
+[5 rows x 8 columns] 
+2025-04-14 16:06:32,910 - INFO - Dimension Client sauvegardée au format parquet
+2025-04-14 16:06:32,915 - INFO - Dimension Véhicule transformée :    vehicule_key  vehicule_id     type    marque         modele  annee_fabrication immatriculation       statut
+0             1            1  voiture     Chery     Chery RO55               2015       VA-316-DM  en location
+1             2            2     moto   Triumph   Triumph pZ24               2021       CB-615-IC  en location
+2             3            3  voiture     Chery     Chery pi69               2015      109-HHZ-55  en location
+3             4            4     vélo      Trek      Trek fw03               2022      048-RVI-45  en location
+4             5            5     moto  Kawasaki  Kawasaki ZE71               2022       SL-827-YY  en location 
+2025-04-14 16:06:32,925 - INFO - Dimension Véhicule sauvegardée au format parquet
+2025-04-14 16:06:32,928 - INFO - Dimension Branch transformée :    branch_key  branch_id                 nom localisation
+0           1          1      Agence Abidjan      Abidjan
+1           2          2      Agence Cotonou      Cotonou
+2           3          3   Agence Porto-Novo   Porto-Novo
+3           4          4  Agence Brazzaville  Brazzaville
+4           5          5        Agence Alger        Alger 
+2025-04-14 16:06:32,929 - INFO - Dimension Branch sauvegardée au format parquet
+2025-04-14 16:06:32,931 - INFO - Génération de la dimension Date 2020-03-17 12:42:07.999091 à 2025-04-14 12:42:14.873326 
+2025-04-14 16:06:33,096 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-14 16:06:33,103 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-14 16:06:33,114 - INFO - Dimension Maintenance transformée :    entretien_id  vehicule_key  date_key_entretien      cout type_entretien
+0             1          9463            20200416  26280.47     réparation
+1             2          7050            20200429  46190.49      nettoyage
+2             3          8048            20200430  43322.05      préventif
+3             4          2632            20200502  45167.00        vidange
+4             5          4356            20200519  38565.38        vidange 
+2025-04-14 16:06:33,119 - INFO - Dimension Maintenance sauvegardée au format parquet
+2025-04-14 16:06:33,119 - INFO - Initialisation du chargement Snowflake
+2025-04-14 16:06:33,193 - INFO - Connexion Snowflake établie
+2025-04-14 16:06:33,193 - INFO - Chargement de la table dim_client ...
+2025-04-14 16:06:33,279 - INFO - Snowflake Connector for Python Version: 3.14.0, Python Version: 3.10.16, Platform: macOS-15.4-arm64-arm-64bit
+2025-04-14 16:06:33,279 - INFO - Connecting to GLOBAL Snowflake domain
+2025-04-14 16:06:33,279 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2025-04-14 16:06:36,074 - ERROR - Échec du chargement Snowflake: Could not reflect: requested table(s) not available in Engine(snowflake://ABRAHAMKOLOBOE27:***@SBUQXXL-JB23633/LOCATION_ETL/LOCATION?role=ACCOUNTADMIN&warehouse=COMPUTE_WH): (DIM_CLIENT)
+2025-04-14 16:06:36,074 - INFO - Nettoyage des ressources Snowflake
+2025-04-14 16:06:36,074 - INFO - closed
+2025-04-14 16:06:36,231 - INFO - No async queries seem to be running, deleting session
+2025-04-14 16:06:36,390 - ERROR - Échec critique du pipeline: Could not reflect: requested table(s) not available in Engine(snowflake://ABRAHAMKOLOBOE27:***@SBUQXXL-JB23633/LOCATION_ETL/LOCATION?role=ACCOUNTADMIN&warehouse=COMPUTE_WH): (DIM_CLIENT)
+2025-04-14 16:09:05,967 - INFO - Création du dossier bronze
+2025-04-14 16:09:05,967 - INFO - Création du dossier silver
+2025-04-14 16:09:05,967 - INFO - Création du dossier gold
+2025-04-14 16:09:06,083 - INFO - === Démarrage du pipeline ETL ===
+2025-04-14 16:09:06,083 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-14 16:09:07,092 - INFO - Extraction des clients réussie
+2025-04-14 16:09:07,202 - INFO - Extraction des véhicules réussie
+2025-04-14 16:09:07,210 - INFO - Extraction des branches réussie
+2025-04-14 16:09:07,286 - INFO - Extraction des locations réussie
+2025-04-14 16:09:07,353 - INFO - Extraction des factures réussie
+2025-04-14 16:09:07,367 - INFO - Extraction des entretiens réussie
+2025-04-14 16:09:07,621 - INFO - Clients sauvegardés au format parquet
+2025-04-14 16:09:07,636 - INFO - Véhicules sauvegardés au format parquet
+2025-04-14 16:09:07,642 - INFO - Branches sauvegardées au format parquet
+2025-04-14 16:09:07,652 - INFO - Locations sauvegardées au format parquet
+2025-04-14 16:09:07,662 - INFO - Factures sauvegardées au format parquet
+2025-04-14 16:09:07,665 - INFO - Entretiens sauvegardés au format parquet
+2025-04-14 16:09:07,665 - INFO - Début de la transformation vers le schéma en étoile
+2025-04-14 16:09:07,665 - INFO - Transformation de la dimension Client
+2025-04-14 16:09:07,713 - INFO - Dimension Client transformée :    client_key  client_id      nom  ...             telephone                               adresse              date_creation
+0           1          1   Gaudin  ...  +33 (0)5 17 02 14 82  8, avenue Marthe Fernandez, Kinshasa 2020-05-10 12:42:07.999091
+1           2          2  Vincent  ...  +33 (0)2 29 42 45 57          16, chemin Brunet, Mogadishu 2020-05-14 12:42:07.999091
+2           3          3    Colin  ...  +33 (0)3 62 12 08 82              avenue Delahaye, Cotonou 2020-04-15 12:42:07.999091
+3           4          4    Peron  ...        01 55 43 71 57        108, rue de Cohen, Ouagadougou 2020-04-17 12:42:07.999091
+4           5          5    Munoz  ...  +33 (0)4 32 03 01 91    570, rue Éléonore Maurice, Abidjan 2020-03-27 12:42:07.999091
+
+[5 rows x 8 columns] 
+2025-04-14 16:09:07,816 - INFO - Dimension Client sauvegardée au format parquet
+2025-04-14 16:09:07,823 - INFO - Dimension Véhicule transformée :    vehicule_key  vehicule_id     type    marque         modele  annee_fabrication immatriculation       statut
+0             1            1  voiture     Chery     Chery RO55               2015       VA-316-DM  en location
+1             2            2     moto   Triumph   Triumph pZ24               2021       CB-615-IC  en location
+2             3            3  voiture     Chery     Chery pi69               2015      109-HHZ-55  en location
+3             4            4     vélo      Trek      Trek fw03               2022      048-RVI-45  en location
+4             5            5     moto  Kawasaki  Kawasaki ZE71               2022       SL-827-YY  en location 
+2025-04-14 16:09:07,834 - INFO - Dimension Véhicule sauvegardée au format parquet
+2025-04-14 16:09:07,837 - INFO - Dimension Branch transformée :    branch_key  branch_id                 nom localisation
+0           1          1      Agence Abidjan      Abidjan
+1           2          2      Agence Cotonou      Cotonou
+2           3          3   Agence Porto-Novo   Porto-Novo
+3           4          4  Agence Brazzaville  Brazzaville
+4           5          5        Agence Alger        Alger 
+2025-04-14 16:09:07,839 - INFO - Dimension Branch sauvegardée au format parquet
+2025-04-14 16:09:07,842 - INFO - Génération de la dimension Date 2020-03-17 12:42:07.999091 à 2025-04-14 12:42:14.873326 
+2025-04-14 16:09:08,071 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-14 16:09:08,083 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-14 16:09:08,091 - INFO - Dimension Maintenance transformée :    entretien_id  vehicule_key  date_key_entretien      cout type_entretien
+0             1          9463            20200416  26280.47     réparation
+1             2          7050            20200429  46190.49      nettoyage
+2             3          8048            20200430  43322.05      préventif
+3             4          2632            20200502  45167.00        vidange
+4             5          4356            20200519  38565.38        vidange 
+2025-04-14 16:09:08,094 - INFO - Dimension Maintenance sauvegardée au format parquet
+2025-04-14 16:09:08,095 - INFO - Initialisation du chargement Snowflake
+2025-04-14 16:09:08,173 - INFO - Connexion Snowflake établie
+2025-04-14 16:09:08,173 - INFO - Snowflake Connector for Python Version: 3.14.0, Python Version: 3.10.16, Platform: macOS-15.4-arm64-arm-64bit
+2025-04-14 16:09:08,174 - INFO - Connecting to GLOBAL Snowflake domain
+2025-04-14 16:09:08,174 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2025-04-14 16:09:10,846 - ERROR - Échec du chargement Snowflake: Not an executable object: 'CREATE SCHEMA IF NOT EXISTS LOCATION'
+2025-04-14 16:09:10,847 - INFO - Nettoyage des ressources Snowflake
+2025-04-14 16:09:10,847 - INFO - closed
+2025-04-14 16:09:10,995 - INFO - No async queries seem to be running, deleting session
+2025-04-14 16:09:11,153 - ERROR - Échec critique du pipeline: Not an executable object: 'CREATE SCHEMA IF NOT EXISTS LOCATION'
+2025-04-14 16:14:47,816 - INFO - Création du dossier bronze
+2025-04-14 16:14:47,816 - INFO - Création du dossier silver
+2025-04-14 16:14:47,816 - INFO - Création du dossier gold
+2025-04-14 16:14:47,901 - INFO - === Démarrage du pipeline ETL ===
+2025-04-14 16:14:47,902 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-14 16:14:48,648 - INFO - Extraction des clients réussie
+2025-04-14 16:14:48,763 - INFO - Extraction des véhicules réussie
+2025-04-14 16:14:48,788 - INFO - Extraction des branches réussie
+2025-04-14 16:14:48,857 - INFO - Extraction des locations réussie
+2025-04-14 16:14:48,908 - INFO - Extraction des factures réussie
+2025-04-14 16:14:48,920 - INFO - Extraction des entretiens réussie
+2025-04-14 16:14:49,089 - INFO - Clients sauvegardés au format parquet
+2025-04-14 16:14:49,106 - INFO - Véhicules sauvegardés au format parquet
+2025-04-14 16:14:49,110 - INFO - Branches sauvegardées au format parquet
+2025-04-14 16:14:49,120 - INFO - Locations sauvegardées au format parquet
+2025-04-14 16:14:49,127 - INFO - Factures sauvegardées au format parquet
+2025-04-14 16:14:49,131 - INFO - Entretiens sauvegardés au format parquet
+2025-04-14 16:14:49,131 - INFO - Début de la transformation vers le schéma en étoile
+2025-04-14 16:14:49,131 - INFO - Transformation de la dimension Client
+2025-04-14 16:14:49,176 - INFO - Dimension Client transformée :    client_key  client_id      nom  ...             telephone                               adresse              date_creation
+0           1          1   Gaudin  ...  +33 (0)5 17 02 14 82  8, avenue Marthe Fernandez, Kinshasa 2020-05-10 12:42:07.999091
+1           2          2  Vincent  ...  +33 (0)2 29 42 45 57          16, chemin Brunet, Mogadishu 2020-05-14 12:42:07.999091
+2           3          3    Colin  ...  +33 (0)3 62 12 08 82              avenue Delahaye, Cotonou 2020-04-15 12:42:07.999091
+3           4          4    Peron  ...        01 55 43 71 57        108, rue de Cohen, Ouagadougou 2020-04-17 12:42:07.999091
+4           5          5    Munoz  ...  +33 (0)4 32 03 01 91    570, rue Éléonore Maurice, Abidjan 2020-03-27 12:42:07.999091
+
+[5 rows x 8 columns] 
+2025-04-14 16:14:49,283 - INFO - Dimension Client sauvegardée au format parquet
+2025-04-14 16:14:49,290 - INFO - Dimension Véhicule transformée :    vehicule_key  vehicule_id     type    marque         modele  annee_fabrication immatriculation       statut
+0             1            1  voiture     Chery     Chery RO55               2015       VA-316-DM  en location
+1             2            2     moto   Triumph   Triumph pZ24               2021       CB-615-IC  en location
+2             3            3  voiture     Chery     Chery pi69               2015      109-HHZ-55  en location
+3             4            4     vélo      Trek      Trek fw03               2022      048-RVI-45  en location
+4             5            5     moto  Kawasaki  Kawasaki ZE71               2022       SL-827-YY  en location 
+2025-04-14 16:14:49,306 - INFO - Dimension Véhicule sauvegardée au format parquet
+2025-04-14 16:14:49,310 - INFO - Dimension Branch transformée :    branch_key  branch_id                 nom localisation
+0           1          1      Agence Abidjan      Abidjan
+1           2          2      Agence Cotonou      Cotonou
+2           3          3   Agence Porto-Novo   Porto-Novo
+3           4          4  Agence Brazzaville  Brazzaville
+4           5          5        Agence Alger        Alger 
+2025-04-14 16:14:49,313 - INFO - Dimension Branch sauvegardée au format parquet
+2025-04-14 16:14:49,316 - INFO - Génération de la dimension Date 2020-03-17 12:42:07.999091 à 2025-04-14 12:42:14.873326 
+2025-04-14 16:14:49,525 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-14 16:14:49,538 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-14 16:14:49,549 - INFO - Dimension Maintenance transformée :    entretien_id  vehicule_key  date_key_entretien      cout type_entretien
+0             1          9463            20200416  26280.47     réparation
+1             2          7050            20200429  46190.49      nettoyage
+2             3          8048            20200430  43322.05      préventif
+3             4          2632            20200502  45167.00        vidange
+4             5          4356            20200519  38565.38        vidange 
+2025-04-14 16:14:49,553 - INFO - Dimension Maintenance sauvegardée au format parquet
+2025-04-14 16:14:49,557 - INFO - Initialisation du chargement Snowflake
+2025-04-14 16:14:49,648 - INFO - Connexion Snowflake établie
+2025-04-14 16:14:49,649 - INFO - Snowflake Connector for Python Version: 3.14.0, Python Version: 3.10.16, Platform: macOS-15.4-arm64-arm-64bit
+2025-04-14 16:14:49,649 - INFO - Connecting to GLOBAL Snowflake domain
+2025-04-14 16:14:49,649 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2025-04-14 16:14:52,055 - INFO - Schéma LOCATION vérifié/créé
+2025-04-14 16:14:52,394 - INFO - Chargement de la table dim_client ...
+2025-04-14 16:14:52,566 - INFO - Table dim_client sauvegardée localement
+2025-04-14 16:15:45,429 - INFO - Table dim_client chargée dans Snowflake
+2025-04-14 16:15:45,431 - INFO - Chargement de la table dim_vehicule ...
+2025-04-14 16:15:45,496 - INFO - Table dim_vehicule sauvegardée localement
+2025-04-14 16:15:50,968 - INFO - Table dim_vehicule chargée dans Snowflake
+2025-04-14 16:15:50,968 - INFO - Chargement de la table dim_branch ...
+2025-04-14 16:15:50,991 - INFO - Table dim_branch sauvegardée localement
+2025-04-14 16:15:53,133 - INFO - Table dim_branch chargée dans Snowflake
+2025-04-14 16:15:53,133 - INFO - Chargement de la table dim_date ...
+2025-04-14 16:15:53,142 - INFO - Table dim_date sauvegardée localement
+2025-04-14 16:15:55,036 - INFO - Table dim_date chargée dans Snowflake
+2025-04-14 16:15:55,037 - INFO - Chargement de la table fact_location ...
+2025-04-14 16:15:55,053 - INFO - Table fact_location sauvegardée localement
+2025-04-14 16:16:00,653 - INFO - Table fact_location chargée dans Snowflake
+2025-04-14 16:16:00,653 - INFO - Chargement de la table fact_facture ...
+2025-04-14 16:16:00,697 - INFO - Table fact_facture sauvegardée localement
+2025-04-14 16:16:05,799 - INFO - Table fact_facture chargée dans Snowflake
+2025-04-14 16:16:05,799 - INFO - Chargement de la table fact_maintenance ...
+2025-04-14 16:16:05,814 - INFO - Table fact_maintenance sauvegardée localement
+2025-04-14 16:16:07,310 - INFO - Table fact_maintenance chargée dans Snowflake
+2025-04-14 16:16:07,311 - INFO - Chargement terminé.
+2025-04-14 16:16:07,311 - INFO - Nettoyage des ressources Snowflake
+2025-04-14 16:16:07,311 - INFO - closed
+2025-04-14 16:16:07,470 - INFO - No async queries seem to be running, deleting session
+2025-04-14 16:16:07,639 - INFO - === Pipeline ETL terminé avec succès ===
+2025-04-14 16:18:44,680 - INFO - Création du dossier bronze
+2025-04-14 16:18:44,681 - INFO - Création du dossier silver
+2025-04-14 16:18:44,681 - INFO - Création du dossier gold
+2025-04-14 16:18:44,769 - INFO - === Démarrage du pipeline ETL ===
+2025-04-14 16:18:44,769 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-14 16:18:45,416 - INFO - Extraction des clients réussie
+2025-04-14 16:18:45,484 - INFO - Extraction des véhicules réussie
+2025-04-14 16:18:45,488 - INFO - Extraction des branches réussie
+2025-04-14 16:18:45,544 - INFO - Extraction des locations réussie
+2025-04-14 16:18:45,586 - INFO - Extraction des factures réussie
+2025-04-14 16:18:45,591 - INFO - Extraction des entretiens réussie
+2025-04-14 16:18:45,749 - INFO - Clients sauvegardés au format parquet
+2025-04-14 16:18:45,763 - INFO - Véhicules sauvegardés au format parquet
+2025-04-14 16:18:45,766 - INFO - Branches sauvegardées au format parquet
+2025-04-14 16:18:45,777 - INFO - Locations sauvegardées au format parquet
+2025-04-14 16:18:45,786 - INFO - Factures sauvegardées au format parquet
+2025-04-14 16:18:45,788 - INFO - Entretiens sauvegardés au format parquet
+2025-04-14 16:18:45,788 - INFO - Début de la transformation vers le schéma en étoile
+2025-04-14 16:18:45,789 - INFO - Transformation de la dimension Client
+2025-04-14 16:18:45,824 - INFO - Dimension Client transformée :    client_key  client_id      nom  ...             telephone                               adresse              date_creation
+0           1          1   Gaudin  ...  +33 (0)5 17 02 14 82  8, avenue Marthe Fernandez, Kinshasa 2020-05-10 12:42:07.999091
+1           2          2  Vincent  ...  +33 (0)2 29 42 45 57          16, chemin Brunet, Mogadishu 2020-05-14 12:42:07.999091
+2           3          3    Colin  ...  +33 (0)3 62 12 08 82              avenue Delahaye, Cotonou 2020-04-15 12:42:07.999091
+3           4          4    Peron  ...        01 55 43 71 57        108, rue de Cohen, Ouagadougou 2020-04-17 12:42:07.999091
+4           5          5    Munoz  ...  +33 (0)4 32 03 01 91    570, rue Éléonore Maurice, Abidjan 2020-03-27 12:42:07.999091
+
+[5 rows x 8 columns] 
+2025-04-14 16:18:45,921 - INFO - Dimension Client sauvegardée au format parquet
+2025-04-14 16:18:45,927 - INFO - Dimension Véhicule transformée :    vehicule_key  vehicule_id     type    marque         modele  annee_fabrication immatriculation       statut
+0             1            1  voiture     Chery     Chery RO55               2015       VA-316-DM  en location
+1             2            2     moto   Triumph   Triumph pZ24               2021       CB-615-IC  en location
+2             3            3  voiture     Chery     Chery pi69               2015      109-HHZ-55  en location
+3             4            4     vélo      Trek      Trek fw03               2022      048-RVI-45  en location
+4             5            5     moto  Kawasaki  Kawasaki ZE71               2022       SL-827-YY  en location 
+2025-04-14 16:18:45,941 - INFO - Dimension Véhicule sauvegardée au format parquet
+2025-04-14 16:18:45,944 - INFO - Dimension Branch transformée :    branch_key  branch_id                 nom localisation
+0           1          1      Agence Abidjan      Abidjan
+1           2          2      Agence Cotonou      Cotonou
+2           3          3   Agence Porto-Novo   Porto-Novo
+3           4          4  Agence Brazzaville  Brazzaville
+4           5          5        Agence Alger        Alger 
+2025-04-14 16:18:45,946 - INFO - Dimension Branch sauvegardée au format parquet
+2025-04-14 16:18:45,949 - INFO - Génération de la dimension Date 2020-03-17 12:42:07.999091 à 2025-04-14 12:42:14.873326 
+2025-04-14 16:18:46,211 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-14 16:18:46,221 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-14 16:18:46,228 - INFO - Dimension Maintenance transformée :    entretien_id  vehicule_key  date_key_entretien      cout type_entretien
+0             1          9463            20200416  26280.47     réparation
+1             2          7050            20200429  46190.49      nettoyage
+2             3          8048            20200430  43322.05      préventif
+3             4          2632            20200502  45167.00        vidange
+4             5          4356            20200519  38565.38        vidange 
+2025-04-14 16:18:46,230 - INFO - Dimension Maintenance sauvegardée au format parquet
+2025-04-14 16:18:46,230 - INFO - Initialisation du chargement Snowflake
+2025-04-14 16:18:46,303 - INFO - Connexion Snowflake établie
+2025-04-14 16:18:46,303 - INFO - Snowflake Connector for Python Version: 3.14.0, Python Version: 3.10.16, Platform: macOS-15.4-arm64-arm-64bit
+2025-04-14 16:18:46,303 - INFO - Connecting to GLOBAL Snowflake domain
+2025-04-14 16:18:46,303 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2025-04-14 16:18:48,566 - INFO - Schéma LOCATION vérifié/créé
+2025-04-14 16:18:48,906 - INFO - Chargement de la table dim_client ...
+2025-04-14 16:18:49,013 - INFO - Table dim_client sauvegardée localement
+2025-04-14 16:19:44,348 - INFO - Table dim_client chargée dans Snowflake
+2025-04-14 16:19:44,349 - INFO - Chargement de la table dim_vehicule ...
+2025-04-14 16:19:44,376 - INFO - Table dim_vehicule sauvegardée localement
+2025-04-14 16:19:52,153 - INFO - Table dim_vehicule chargée dans Snowflake
+2025-04-14 16:19:52,154 - INFO - Chargement de la table dim_branch ...
+2025-04-14 16:19:52,166 - INFO - Table dim_branch sauvegardée localement
+2025-04-14 16:19:56,885 - INFO - Table dim_branch chargée dans Snowflake
+2025-04-14 16:19:56,885 - INFO - Chargement de la table dim_date ...
+2025-04-14 16:19:56,900 - INFO - Table dim_date sauvegardée localement
+2025-04-14 16:20:01,919 - INFO - Table dim_date chargée dans Snowflake
+2025-04-14 16:20:01,919 - INFO - Chargement de la table fact_location ...
+2025-04-14 16:20:01,949 - INFO - Table fact_location sauvegardée localement
+2025-04-14 16:20:12,359 - INFO - Table fact_location chargée dans Snowflake
+2025-04-14 16:20:12,361 - INFO - Chargement de la table fact_facture ...
+2025-04-14 16:20:12,395 - INFO - Table fact_facture sauvegardée localement
+2025-04-14 16:20:20,938 - INFO - Table fact_facture chargée dans Snowflake
+2025-04-14 16:20:20,939 - INFO - Chargement de la table fact_maintenance ...
+2025-04-14 16:20:20,952 - INFO - Table fact_maintenance sauvegardée localement
+2025-04-14 16:20:25,579 - INFO - Table fact_maintenance chargée dans Snowflake
+2025-04-14 16:20:25,579 - INFO - Chargement terminé.
+2025-04-14 16:20:25,579 - INFO - Nettoyage des ressources Snowflake
+2025-04-14 16:20:25,579 - INFO - closed
+2025-04-14 16:20:25,735 - INFO - No async queries seem to be running, deleting session
+2025-04-14 16:20:25,904 - INFO - === Pipeline ETL terminé avec succès ===
+2025-04-14 16:25:59,141 - INFO - Création du dossier bronze
+2025-04-14 16:25:59,141 - INFO - Création du dossier silver
+2025-04-14 16:25:59,141 - INFO - Création du dossier gold
+2025-04-14 16:25:59,219 - INFO - === Démarrage du pipeline ETL ===
+2025-04-14 16:25:59,219 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-14 16:25:59,929 - INFO - Extraction des clients réussie
+2025-04-14 16:26:00,029 - INFO - Extraction des véhicules réussie
+2025-04-14 16:26:00,038 - INFO - Extraction des branches réussie
+2025-04-14 16:26:00,150 - INFO - Extraction des locations réussie
+2025-04-14 16:26:00,211 - INFO - Extraction des factures réussie
+2025-04-14 16:26:00,218 - INFO - Extraction des entretiens réussie
+2025-04-14 16:26:00,373 - INFO - Clients sauvegardés au format parquet
+2025-04-14 16:26:00,387 - INFO - Véhicules sauvegardés au format parquet
+2025-04-14 16:26:00,390 - INFO - Branches sauvegardées au format parquet
+2025-04-14 16:26:00,399 - INFO - Locations sauvegardées au format parquet
+2025-04-14 16:26:00,407 - INFO - Factures sauvegardées au format parquet
+2025-04-14 16:26:00,409 - INFO - Entretiens sauvegardés au format parquet
+2025-04-14 16:26:00,409 - INFO - Début de la transformation vers le schéma en étoile
+2025-04-14 16:26:00,409 - INFO - Transformation de la dimension Client
+2025-04-14 16:26:00,447 - INFO - Dimension Client transformée :    client_key  client_id      nom  ...             telephone                               adresse              date_creation
+0           1          1   Gaudin  ...  +33 (0)5 17 02 14 82  8, avenue Marthe Fernandez, Kinshasa 2020-05-10 12:42:07.999091
+1           2          2  Vincent  ...  +33 (0)2 29 42 45 57          16, chemin Brunet, Mogadishu 2020-05-14 12:42:07.999091
+2           3          3    Colin  ...  +33 (0)3 62 12 08 82              avenue Delahaye, Cotonou 2020-04-15 12:42:07.999091
+3           4          4    Peron  ...        01 55 43 71 57        108, rue de Cohen, Ouagadougou 2020-04-17 12:42:07.999091
+4           5          5    Munoz  ...  +33 (0)4 32 03 01 91    570, rue Éléonore Maurice, Abidjan 2020-03-27 12:42:07.999091
+
+[5 rows x 8 columns] 
+2025-04-14 16:26:00,536 - INFO - Dimension Client sauvegardée au format parquet
+2025-04-14 16:26:00,542 - INFO - Dimension Véhicule transformée :    vehicule_key  vehicule_id     type    marque         modele  annee_fabrication immatriculation       statut
+0             1            1  voiture     Chery     Chery RO55               2015       VA-316-DM  en location
+1             2            2     moto   Triumph   Triumph pZ24               2021       CB-615-IC  en location
+2             3            3  voiture     Chery     Chery pi69               2015      109-HHZ-55  en location
+3             4            4     vélo      Trek      Trek fw03               2022      048-RVI-45  en location
+4             5            5     moto  Kawasaki  Kawasaki ZE71               2022       SL-827-YY  en location 
+2025-04-14 16:26:00,554 - INFO - Dimension Véhicule sauvegardée au format parquet
+2025-04-14 16:26:00,558 - INFO - Dimension Branch transformée :    branch_key  branch_id                 nom localisation
+0           1          1      Agence Abidjan      Abidjan
+1           2          2      Agence Cotonou      Cotonou
+2           3          3   Agence Porto-Novo   Porto-Novo
+3           4          4  Agence Brazzaville  Brazzaville
+4           5          5        Agence Alger        Alger 
+2025-04-14 16:26:00,562 - INFO - Dimension Branch sauvegardée au format parquet
+2025-04-14 16:26:00,566 - INFO - Génération de la dimension Date 2020-03-17 12:42:07.999091 à 2025-04-14 12:42:14.873326 
+2025-04-14 16:26:00,799 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-14 16:26:00,812 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-14 16:26:00,820 - INFO - Dimension Maintenance transformée :    entretien_id  vehicule_key  date_key_entretien      cout type_entretien
+0             1          9463            20200416  26280.47     réparation
+1             2          7050            20200429  46190.49      nettoyage
+2             3          8048            20200430  43322.05      préventif
+3             4          2632            20200502  45167.00        vidange
+4             5          4356            20200519  38565.38        vidange 
+2025-04-14 16:26:00,826 - INFO - Dimension Maintenance sauvegardée au format parquet
+2025-04-14 16:26:00,827 - INFO - Initialisation du chargement Snowflake
+2025-04-14 16:26:00,928 - INFO - Connexion Snowflake établie
+2025-04-14 16:26:00,929 - INFO - Snowflake Connector for Python Version: 3.14.0, Python Version: 3.10.16, Platform: macOS-15.4-arm64-arm-64bit
+2025-04-14 16:26:00,929 - INFO - Connecting to GLOBAL Snowflake domain
+2025-04-14 16:26:00,930 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2025-04-14 16:26:04,148 - INFO - Contexte Snowflake configuré
+2025-04-14 16:26:05,445 - INFO - Chargement de la table dim_client ...
+2025-04-14 16:27:16,541 - INFO - Table LOCATION_ETL.LOCATION.DIM_CLIENT chargée avec succès
+2025-04-14 16:27:16,543 - INFO - Table dim_client sauvegardée localement
+2025-04-14 16:28:06,124 - INFO - Table dim_client chargée dans Snowflake
+2025-04-14 16:28:06,126 - INFO - Chargement de la table dim_vehicule ...
+2025-04-14 16:28:14,868 - INFO - Table LOCATION_ETL.LOCATION.DIM_VEHICULE chargée avec succès
+2025-04-14 16:28:14,869 - INFO - Table dim_vehicule sauvegardée localement
+2025-04-14 16:28:24,019 - INFO - Table dim_vehicule chargée dans Snowflake
+2025-04-14 16:28:24,022 - INFO - Chargement de la table dim_branch ...
+2025-04-14 16:28:28,554 - INFO - Table LOCATION_ETL.LOCATION.DIM_BRANCH chargée avec succès
+2025-04-14 16:28:28,555 - INFO - Table dim_branch sauvegardée localement
+2025-04-14 16:28:33,612 - INFO - Table dim_branch chargée dans Snowflake
+2025-04-14 16:28:33,613 - INFO - Chargement de la table dim_date ...
+2025-04-14 16:28:38,605 - INFO - Table LOCATION_ETL.LOCATION.DIM_DATE chargée avec succès
+2025-04-14 16:28:38,605 - INFO - Table dim_date sauvegardée localement
+2025-04-14 16:28:43,701 - INFO - Table dim_date chargée dans Snowflake
+2025-04-14 16:28:43,710 - INFO - Chargement de la table fact_location ...
+2025-04-14 16:28:54,848 - INFO - Table LOCATION_ETL.LOCATION.FACT_LOCATION chargée avec succès
+2025-04-14 16:28:54,849 - INFO - Table fact_location sauvegardée localement
+2025-04-14 16:29:05,116 - INFO - Table fact_location chargée dans Snowflake
+2025-04-14 16:29:05,117 - INFO - Chargement de la table fact_facture ...
+2025-04-14 16:29:15,078 - INFO - Table LOCATION_ETL.LOCATION.FACT_FACTURE chargée avec succès
+2025-04-14 16:29:15,079 - INFO - Table fact_facture sauvegardée localement
+2025-04-14 16:29:27,277 - INFO - Table fact_facture chargée dans Snowflake
+2025-04-14 16:29:27,278 - INFO - Chargement de la table fact_maintenance ...
+2025-04-14 16:29:32,377 - INFO - Table LOCATION_ETL.LOCATION.FACT_MAINTENANCE chargée avec succès
+2025-04-14 16:29:32,378 - INFO - Table fact_maintenance sauvegardée localement
+2025-04-14 16:29:37,151 - INFO - Table fact_maintenance chargée dans Snowflake
+2025-04-14 16:29:37,151 - INFO - Chargement terminé.
+2025-04-14 16:29:37,151 - INFO - Nettoyage des ressources Snowflake
+2025-04-14 16:29:37,152 - INFO - closed
+2025-04-14 16:29:37,306 - INFO - No async queries seem to be running, deleting session
+2025-04-14 16:29:37,468 - INFO - === Pipeline ETL terminé avec succès ===
+2025-04-15 09:30:11,786 - INFO - Création du dossier bronze
+2025-04-15 09:30:11,786 - INFO - Création du dossier silver
+2025-04-15 09:30:11,787 - INFO - Création du dossier gold
+2025-04-15 09:30:11,875 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:30:11,876 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:30:11,898 - ERROR - Échec de l'extraction: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 6543 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 6543 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-15 09:30:11,898 - ERROR - Échec critique du pipeline: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 6543 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 6543 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-04-15 09:31:20,978 - INFO - Création du dossier bronze
+2025-04-15 09:31:20,978 - INFO - Création du dossier silver
+2025-04-15 09:31:20,978 - INFO - Création du dossier gold
+2025-04-15 09:31:21,036 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:31:21,036 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:31:21,761 - INFO - Extraction des clients réussie
+2025-04-15 09:31:21,828 - INFO - Extraction des véhicules réussie
+2025-04-15 09:31:21,832 - INFO - Extraction des branches réussie
+2025-04-15 09:31:21,882 - INFO - Extraction des locations réussie
+2025-04-15 09:31:21,933 - INFO - Extraction des factures réussie
+2025-04-15 09:31:21,943 - INFO - Extraction des entretiens réussie
+2025-04-15 09:31:22,161 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:31:22,171 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:31:22,174 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:31:22,181 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:31:22,189 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:31:22,191 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:31:22,297 - ERROR - Échec de la transformation: "['location_id'] not in index"
+2025-04-15 09:31:22,297 - ERROR - Échec critique du pipeline: "['location_id'] not in index"
+2025-04-15 09:31:48,599 - INFO - Création du dossier bronze
+2025-04-15 09:31:48,600 - INFO - Création du dossier silver
+2025-04-15 09:31:48,600 - INFO - Création du dossier gold
+2025-04-15 09:31:48,648 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:31:48,648 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:31:49,096 - INFO - Extraction des clients réussie
+2025-04-15 09:31:49,153 - INFO - Extraction des véhicules réussie
+2025-04-15 09:31:49,158 - INFO - Extraction des branches réussie
+2025-04-15 09:31:49,202 - INFO - Extraction des locations réussie
+2025-04-15 09:31:49,233 - INFO - Extraction des factures réussie
+2025-04-15 09:31:49,238 - INFO - Extraction des entretiens réussie
+2025-04-15 09:31:49,345 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:31:49,352 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:31:49,353 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:31:49,360 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:31:49,365 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:31:49,366 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:31:49,468 - ERROR - Échec de la transformation: "['location_id'] not in index"
+2025-04-15 09:31:49,469 - ERROR - Échec critique du pipeline: "['location_id'] not in index"
+2025-04-15 09:32:45,834 - INFO - Création du dossier bronze
+2025-04-15 09:32:45,834 - INFO - Création du dossier silver
+2025-04-15 09:32:45,834 - INFO - Création du dossier gold
+2025-04-15 09:32:45,928 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:32:45,928 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:32:46,403 - INFO - Extraction des clients réussie
+2025-04-15 09:32:46,462 - INFO - Extraction des véhicules réussie
+2025-04-15 09:32:46,465 - INFO - Extraction des branches réussie
+2025-04-15 09:32:46,503 - INFO - Extraction des locations réussie
+2025-04-15 09:32:46,534 - INFO - Extraction des factures réussie
+2025-04-15 09:32:46,542 - INFO - Extraction des entretiens réussie
+2025-04-15 09:32:46,656 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:32:46,663 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:32:46,665 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:32:46,671 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:32:46,676 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:32:46,677 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:32:46,769 - ERROR - Échec de la transformation: "['branch_id'] not in index"
+2025-04-15 09:32:46,769 - ERROR - Échec critique du pipeline: "['branch_id'] not in index"
+2025-04-15 09:33:43,250 - INFO - Création du dossier bronze
+2025-04-15 09:33:43,251 - INFO - Création du dossier silver
+2025-04-15 09:33:43,251 - INFO - Création du dossier gold
+2025-04-15 09:33:43,301 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:33:43,301 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:33:43,747 - INFO - Extraction des clients réussie
+2025-04-15 09:33:43,796 - INFO - Extraction des véhicules réussie
+2025-04-15 09:33:43,800 - INFO - Extraction des branches réussie
+2025-04-15 09:33:43,838 - INFO - Extraction des locations réussie
+2025-04-15 09:33:43,866 - INFO - Extraction des factures réussie
+2025-04-15 09:33:43,870 - INFO - Extraction des entretiens réussie
+2025-04-15 09:33:43,985 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:33:43,993 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:33:43,995 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:33:44,000 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:33:44,004 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:33:44,006 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:33:44,092 - ERROR - Échec de la transformation: 'vehicule_id'
+2025-04-15 09:33:44,092 - ERROR - Échec critique du pipeline: 'vehicule_id'
+2025-04-15 09:35:16,820 - INFO - Création du dossier bronze
+2025-04-15 09:35:16,820 - INFO - Création du dossier silver
+2025-04-15 09:35:16,820 - INFO - Création du dossier gold
+2025-04-15 09:35:16,871 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:35:16,871 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:35:17,319 - INFO - Extraction des clients réussie
+2025-04-15 09:35:17,370 - INFO - Extraction des véhicules réussie
+2025-04-15 09:35:17,374 - INFO - Extraction des branches réussie
+2025-04-15 09:35:17,412 - INFO - Extraction des locations réussie
+2025-04-15 09:35:17,438 - INFO - Extraction des factures réussie
+2025-04-15 09:35:17,443 - INFO - Extraction des entretiens réussie
+2025-04-15 09:35:17,570 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:35:17,578 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:35:17,579 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:35:17,584 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:35:17,588 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:35:17,589 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:35:17,688 - ERROR - Échec de la transformation: 'vehicule_id'
+2025-04-15 09:35:17,688 - ERROR - Échec critique du pipeline: 'vehicule_id'
+2025-04-15 09:36:24,395 - INFO - Création du dossier bronze
+2025-04-15 09:36:24,395 - INFO - Création du dossier silver
+2025-04-15 09:36:24,395 - INFO - Création du dossier gold
+2025-04-15 09:36:24,442 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:36:24,442 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:36:24,866 - INFO - Extraction des clients réussie
+2025-04-15 09:36:24,917 - INFO - Extraction des véhicules réussie
+2025-04-15 09:36:24,922 - INFO - Extraction des branches réussie
+2025-04-15 09:36:24,958 - INFO - Extraction des locations réussie
+2025-04-15 09:36:24,987 - INFO - Extraction des factures réussie
+2025-04-15 09:36:24,991 - INFO - Extraction des entretiens réussie
+2025-04-15 09:36:25,094 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:36:25,101 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:36:25,102 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:36:25,107 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:36:25,111 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:36:25,112 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:36:25,217 - ERROR - Échec de la transformation: 'vehicule_id'
+2025-04-15 09:36:25,217 - ERROR - Échec critique du pipeline: 'vehicule_id'
+2025-04-15 09:37:19,704 - INFO - Création du dossier bronze
+2025-04-15 09:37:19,704 - INFO - Création du dossier silver
+2025-04-15 09:37:19,704 - INFO - Création du dossier gold
+2025-04-15 09:37:19,751 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:37:19,752 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:37:20,168 - INFO - Extraction des clients réussie
+2025-04-15 09:37:20,221 - INFO - Extraction des véhicules réussie
+2025-04-15 09:37:20,224 - INFO - Extraction des branches réussie
+2025-04-15 09:37:20,260 - INFO - Extraction des locations réussie
+2025-04-15 09:37:20,286 - INFO - Extraction des factures réussie
+2025-04-15 09:37:20,291 - INFO - Extraction des entretiens réussie
+2025-04-15 09:37:20,403 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:37:20,411 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:37:20,414 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:37:20,420 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:37:20,425 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:37:20,426 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:37:20,514 - ERROR - Échec de la transformation: 'vehicule_id'
+2025-04-15 09:37:20,514 - ERROR - Échec critique du pipeline: 'vehicule_id'
+2025-04-15 09:40:08,186 - INFO - Création du dossier bronze
+2025-04-15 09:40:08,186 - INFO - Création du dossier silver
+2025-04-15 09:40:08,186 - INFO - Création du dossier gold
+2025-04-15 09:40:08,271 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:40:08,271 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:40:08,742 - INFO - Extraction des clients réussie
+2025-04-15 09:40:08,795 - INFO - Extraction des véhicules réussie
+2025-04-15 09:40:08,799 - INFO - Extraction des branches réussie
+2025-04-15 09:40:08,837 - INFO - Extraction des locations réussie
+2025-04-15 09:40:08,866 - INFO - Extraction des factures réussie
+2025-04-15 09:40:08,871 - INFO - Extraction des entretiens réussie
+2025-04-15 09:40:08,995 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:40:09,003 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:40:09,005 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:40:09,010 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:40:09,014 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:40:09,015 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:40:09,113 - ERROR - Échec de la transformation: 'vehicule_id'
+2025-04-15 09:40:09,113 - ERROR - Échec critique du pipeline: 'vehicule_id'
+2025-04-15 09:42:17,199 - INFO - Création du dossier bronze
+2025-04-15 09:42:17,199 - INFO - Création du dossier silver
+2025-04-15 09:42:17,199 - INFO - Création du dossier gold
+2025-04-15 09:42:17,287 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 09:42:17,287 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 09:42:17,715 - INFO - Extraction des clients réussie
+2025-04-15 09:42:17,764 - INFO - Extraction des véhicules réussie
+2025-04-15 09:42:17,767 - INFO - Extraction des branches réussie
+2025-04-15 09:42:17,803 - INFO - Extraction des locations réussie
+2025-04-15 09:42:17,829 - INFO - Extraction des factures réussie
+2025-04-15 09:42:17,834 - INFO - Extraction des entretiens réussie
+2025-04-15 09:42:17,980 - INFO - Clients sauvegardés au format parquet
+2025-04-15 09:42:17,989 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 09:42:17,990 - INFO - Branches sauvegardées au format parquet
+2025-04-15 09:42:17,995 - INFO - Locations sauvegardées au format parquet
+2025-04-15 09:42:18,003 - INFO - Factures sauvegardées au format parquet
+2025-04-15 09:42:18,005 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 09:42:18,053 - ERROR - Échec de la transformation: 'vehicule_id'
+2025-04-15 09:42:18,053 - ERROR - Échec critique du pipeline: 'vehicule_id'
