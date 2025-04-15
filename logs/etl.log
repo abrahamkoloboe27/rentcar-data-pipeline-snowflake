@@ -748,3 +748,180 @@ connection to server at "localhost" (127.0.0.1), port 6543 failed: Connection re
 2025-04-15 09:42:18,005 - INFO - Entretiens sauvegardés au format parquet
 2025-04-15 09:42:18,053 - ERROR - Échec de la transformation: 'vehicule_id'
 2025-04-15 09:42:18,053 - ERROR - Échec critique du pipeline: 'vehicule_id'
+2025-04-15 10:06:42,451 - INFO - Création du dossier bronze
+2025-04-15 10:06:42,451 - INFO - Création du dossier silver
+2025-04-15 10:06:42,451 - INFO - Création du dossier gold
+2025-04-15 10:06:42,534 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 10:06:42,534 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 10:06:43,178 - INFO - Extraction des clients réussie
+2025-04-15 10:06:43,237 - INFO - Extraction des véhicules réussie
+2025-04-15 10:06:43,243 - INFO - Extraction des branches réussie
+2025-04-15 10:06:43,285 - INFO - Extraction des locations réussie
+2025-04-15 10:06:43,323 - INFO - Extraction des factures réussie
+2025-04-15 10:06:43,328 - INFO - Extraction des entretiens réussie
+2025-04-15 10:06:43,464 - INFO - Clients sauvegardés au format parquet
+2025-04-15 10:06:43,471 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 10:06:43,474 - INFO - Branches sauvegardées au format parquet
+2025-04-15 10:06:43,479 - INFO - Locations sauvegardées au format parquet
+2025-04-15 10:06:43,484 - INFO - Factures sauvegardées au format parquet
+2025-04-15 10:06:43,486 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 10:06:43,517 - INFO - Fact location columns before merge: ['rental_id', 'client_key', 'vehicule_id', 'date_debut', 'date_fin', 'prix_total', 'statut_location', 'mode_paiement', 'vehicule_key']
+2025-04-15 10:06:43,609 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-15 10:06:43,613 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-15 10:06:43,616 - ERROR - Échec de la transformation: name 'dim_date' is not defined
+2025-04-15 10:06:43,616 - ERROR - Échec critique du pipeline: name 'dim_date' is not defined
+2025-04-15 10:09:12,922 - INFO - Création du dossier bronze
+2025-04-15 10:09:12,922 - INFO - Création du dossier silver
+2025-04-15 10:09:12,922 - INFO - Création du dossier gold
+2025-04-15 10:09:12,979 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 10:09:12,979 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 10:09:13,415 - INFO - Extraction des clients réussie
+2025-04-15 10:09:13,462 - INFO - Extraction des véhicules réussie
+2025-04-15 10:09:13,466 - INFO - Extraction des branches réussie
+2025-04-15 10:09:13,506 - INFO - Extraction des locations réussie
+2025-04-15 10:09:13,537 - INFO - Extraction des factures réussie
+2025-04-15 10:09:13,541 - INFO - Extraction des entretiens réussie
+2025-04-15 10:09:13,664 - INFO - Clients sauvegardés au format parquet
+2025-04-15 10:09:13,672 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 10:09:13,675 - INFO - Branches sauvegardées au format parquet
+2025-04-15 10:09:13,680 - INFO - Locations sauvegardées au format parquet
+2025-04-15 10:09:13,686 - INFO - Factures sauvegardées au format parquet
+2025-04-15 10:09:13,687 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 10:09:13,717 - INFO - Fact location columns before merge: ['rental_id', 'client_key', 'vehicule_id', 'date_debut', 'date_fin', 'prix_total', 'statut_location', 'mode_paiement', 'vehicule_key']
+2025-04-15 10:09:13,806 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-15 10:09:13,811 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-15 10:09:13,814 - ERROR - Échec de la transformation: 'date_debut'
+2025-04-15 10:09:13,814 - ERROR - Échec critique du pipeline: 'date_debut'
+2025-04-15 10:10:22,890 - INFO - Création du dossier bronze
+2025-04-15 10:10:22,891 - INFO - Création du dossier silver
+2025-04-15 10:10:22,891 - INFO - Création du dossier gold
+2025-04-15 10:10:22,947 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 10:10:22,947 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 10:10:23,387 - INFO - Extraction des clients réussie
+2025-04-15 10:10:23,435 - INFO - Extraction des véhicules réussie
+2025-04-15 10:10:23,440 - INFO - Extraction des branches réussie
+2025-04-15 10:10:23,476 - INFO - Extraction des locations réussie
+2025-04-15 10:10:23,501 - INFO - Extraction des factures réussie
+2025-04-15 10:10:23,508 - INFO - Extraction des entretiens réussie
+2025-04-15 10:10:23,622 - INFO - Clients sauvegardés au format parquet
+2025-04-15 10:10:23,630 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 10:10:23,633 - INFO - Branches sauvegardées au format parquet
+2025-04-15 10:10:23,638 - INFO - Locations sauvegardées au format parquet
+2025-04-15 10:10:23,642 - INFO - Factures sauvegardées au format parquet
+2025-04-15 10:10:23,644 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 10:10:23,678 - INFO - Fact location columns before merge: ['rental_id', 'client_key', 'vehicule_id', 'date_debut', 'date_fin', 'prix_total', 'statut_location', 'mode_paiement', 'vehicule_key']
+2025-04-15 10:10:23,770 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-15 10:10:23,775 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-15 10:10:23,778 - ERROR - Échec de la transformation: 'numpy.int64' object has no attribute 'date'
+2025-04-15 10:10:23,778 - ERROR - Échec critique du pipeline: 'numpy.int64' object has no attribute 'date'
+2025-04-15 10:10:59,226 - INFO - Création du dossier bronze
+2025-04-15 10:10:59,227 - INFO - Création du dossier silver
+2025-04-15 10:10:59,227 - INFO - Création du dossier gold
+2025-04-15 10:10:59,291 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 10:10:59,291 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 10:10:59,686 - INFO - Extraction des clients réussie
+2025-04-15 10:10:59,733 - INFO - Extraction des véhicules réussie
+2025-04-15 10:10:59,736 - INFO - Extraction des branches réussie
+2025-04-15 10:10:59,770 - INFO - Extraction des locations réussie
+2025-04-15 10:10:59,795 - INFO - Extraction des factures réussie
+2025-04-15 10:10:59,799 - INFO - Extraction des entretiens réussie
+2025-04-15 10:10:59,907 - INFO - Clients sauvegardés au format parquet
+2025-04-15 10:10:59,915 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 10:10:59,917 - INFO - Branches sauvegardées au format parquet
+2025-04-15 10:10:59,922 - INFO - Locations sauvegardées au format parquet
+2025-04-15 10:10:59,926 - INFO - Factures sauvegardées au format parquet
+2025-04-15 10:10:59,927 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 10:10:59,964 - INFO - Fact location columns before merge: ['rental_id', 'client_key', 'vehicule_id', 'date_debut', 'date_fin', 'prix_total', 'statut_location', 'mode_paiement', 'vehicule_key']
+2025-04-15 10:11:00,056 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-15 10:11:00,061 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-15 10:11:00,064 - ERROR - Échec de la transformation: 'numpy.int64' object has no attribute 'date'
+2025-04-15 10:11:00,064 - ERROR - Échec critique du pipeline: 'numpy.int64' object has no attribute 'date'
+2025-04-15 10:11:58,109 - INFO - Création du dossier bronze
+2025-04-15 10:11:58,109 - INFO - Création du dossier silver
+2025-04-15 10:11:58,109 - INFO - Création du dossier gold
+2025-04-15 10:11:58,166 - INFO - === Démarrage du pipeline ETL ===
+2025-04-15 10:11:58,167 - INFO - Début de l'extraction des données depuis PostgreSQL
+2025-04-15 10:11:58,582 - INFO - Extraction des clients réussie
+2025-04-15 10:11:58,630 - INFO - Extraction des véhicules réussie
+2025-04-15 10:11:58,635 - INFO - Extraction des branches réussie
+2025-04-15 10:11:58,674 - INFO - Extraction des locations réussie
+2025-04-15 10:11:58,699 - INFO - Extraction des factures réussie
+2025-04-15 10:11:58,705 - INFO - Extraction des entretiens réussie
+2025-04-15 10:11:58,800 - INFO - Clients sauvegardés au format parquet
+2025-04-15 10:11:58,807 - INFO - Véhicules sauvegardés au format parquet
+2025-04-15 10:11:58,809 - INFO - Branches sauvegardées au format parquet
+2025-04-15 10:11:58,813 - INFO - Locations sauvegardées au format parquet
+2025-04-15 10:11:58,817 - INFO - Factures sauvegardées au format parquet
+2025-04-15 10:11:58,819 - INFO - Entretiens sauvegardés au format parquet
+2025-04-15 10:11:58,846 - INFO - Fact location columns before merge: ['rental_id', 'client_key', 'vehicule_id', 'date_debut', 'date_fin', 'prix_total', 'statut_location', 'mode_paiement', 'vehicule_key']
+2025-04-15 10:11:58,931 - INFO - Dimension Facture transformée :    facture_id  location_id  client_key  date_key_facture   montant mode_paiement statut_paiement
+0           1            1        1034          20200415   1524.59          wave           payée
+1           2            2         116          20200415   2540.99          None         impayée
+2           3            3         697          20200415  30491.89          wave           payée
+3           4            4         460          20200415    508.20  mobile_money           payée
+4           5            5         158          20200415  10163.96  mobile_money           payée 
+2025-04-15 10:11:58,936 - INFO - Dimension Facture sauvegardée au format parquet
+2025-04-15 10:11:58,943 - INFO - Génération de la dimension Date 2020-04-15 à 2025-04-10 
+2025-04-15 10:11:58,976 - INFO - Initialisation du chargement Snowflake
+2025-04-15 10:11:59,015 - INFO - Connexion Snowflake établie
+2025-04-15 10:11:59,015 - INFO - Snowflake Connector for Python Version: 3.14.0, Python Version: 3.10.16, Platform: macOS-15.4-arm64-arm-64bit
+2025-04-15 10:11:59,015 - INFO - Connecting to GLOBAL Snowflake domain
+2025-04-15 10:11:59,015 - INFO - This connection is in OCSP Fail Open Mode. TLS Certificates would be checked for validity and revocation status. Any other Certificate Revocation related exceptions or OCSP Responder failures would be disregarded in favor of connectivity.
+2025-04-15 10:12:01,919 - INFO - Contexte Snowflake configuré
+2025-04-15 10:12:02,269 - INFO - Chargement de la table dim_client ...
+2025-04-15 10:13:05,108 - INFO - Table LOCATION_ETL.LOCATION.DIM_CLIENT chargée avec succès
+2025-04-15 10:13:05,109 - INFO - Table dim_client sauvegardée localement
+2025-04-15 10:14:03,136 - INFO - Table dim_client chargée dans Snowflake
+2025-04-15 10:14:03,138 - INFO - Chargement de la table dim_vehicule ...
+2025-04-15 10:14:11,721 - INFO - Table LOCATION_ETL.LOCATION.DIM_VEHICULE chargée avec succès
+2025-04-15 10:14:11,722 - INFO - Table dim_vehicule sauvegardée localement
+2025-04-15 10:14:20,660 - INFO - Table dim_vehicule chargée dans Snowflake
+2025-04-15 10:14:20,662 - INFO - Chargement de la table dim_branch ...
+2025-04-15 10:14:24,952 - INFO - Table LOCATION_ETL.LOCATION.DIM_BRANCH chargée avec succès
+2025-04-15 10:14:24,953 - INFO - Table dim_branch sauvegardée localement
+2025-04-15 10:14:29,469 - INFO - Table dim_branch chargée dans Snowflake
+2025-04-15 10:14:29,470 - INFO - Chargement de la table dim_date ...
+2025-04-15 10:14:34,126 - INFO - Table LOCATION_ETL.LOCATION.DIM_DATE chargée avec succès
+2025-04-15 10:14:34,126 - INFO - Table dim_date sauvegardée localement
+2025-04-15 10:14:39,595 - INFO - Table dim_date chargée dans Snowflake
+2025-04-15 10:14:39,596 - INFO - Chargement de la table dim_paiement ...
+2025-04-15 10:14:43,648 - INFO - Table LOCATION_ETL.LOCATION.DIM_PAIEMENT chargée avec succès
+2025-04-15 10:14:43,648 - INFO - Table dim_paiement sauvegardée localement
+2025-04-15 10:14:48,024 - INFO - Table dim_paiement chargée dans Snowflake
+2025-04-15 10:14:48,025 - INFO - Chargement de la table fact_location ...
+2025-04-15 10:14:58,082 - INFO - Table LOCATION_ETL.LOCATION.FACT_LOCATION chargée avec succès
+2025-04-15 10:14:58,083 - INFO - Table fact_location sauvegardée localement
+2025-04-15 10:15:05,897 - INFO - Table fact_location chargée dans Snowflake
+2025-04-15 10:15:05,899 - INFO - Chargement de la table fact_facture ...
+2025-04-15 10:15:13,385 - INFO - Table LOCATION_ETL.LOCATION.FACT_FACTURE chargée avec succès
+2025-04-15 10:15:13,385 - INFO - Table fact_facture sauvegardée localement
+2025-04-15 10:15:21,173 - INFO - Table fact_facture chargée dans Snowflake
+2025-04-15 10:15:21,175 - INFO - Chargement de la table fact_maintenance ...
+2025-04-15 10:15:25,406 - INFO - Table LOCATION_ETL.LOCATION.FACT_MAINTENANCE chargée avec succès
+2025-04-15 10:15:25,406 - INFO - Table fact_maintenance sauvegardée localement
+2025-04-15 10:15:29,936 - INFO - Table fact_maintenance chargée dans Snowflake
+2025-04-15 10:15:29,936 - INFO - Chargement terminé.
+2025-04-15 10:15:29,937 - INFO - Nettoyage des ressources Snowflake
+2025-04-15 10:15:29,937 - INFO - closed
+2025-04-15 10:15:30,100 - INFO - No async queries seem to be running, deleting session
+2025-04-15 10:15:30,276 - INFO - === Pipeline ETL terminé avec succès ===

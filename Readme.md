@@ -30,9 +30,10 @@ L'usage de **Parquet** à chaque étape garantit une conservation historique et 
 ## Architecture
 
 L'architecture adoptée est à la fois modulaire et performante. Voici un schéma simplifié :
+Diagramme de l'Architecture
 
 ```mermaid
-graph LR
+graph TD
     A[PostgreSQL (Source)] --> B[Extraction (Bronze)]
     B --> C[Transformation (Silver)]
     C --> D[Chargement (Gold) dans Snowflake]

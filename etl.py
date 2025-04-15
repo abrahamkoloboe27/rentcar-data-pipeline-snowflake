@@ -133,24 +133,45 @@ def transform_data(raw_data):
         dim_paiement = dim_paiement[["paiement_key", "mode_paiement", "statut_paiement"]]
         dim_paiement.to_parquet(os.path.join(SILVER_DIR, "dim_paiement.parquet"), index=False)
 
-        # Fact Location - Final clean version
+        # Fact Location - Corrected version
         fact_location = raw_data["locations"].copy()
         
-        # Standardize column names for French consistency
+        # Standardize column names (include date columns)
         column_renames = {
             'location_id': 'rental_id',
             'vehicle_id': 'vehicule_id',
             'statut': 'statut_location',
             'client_id': 'client_key',
-            'vehicule_id': 'vehicule_key'
+            'start_date': 'date_debut',  # Add if source uses different names
+            'end_date': 'date_fin'       # Add if source uses different names
         }
         fact_location = fact_location.rename(columns=column_renames, errors='ignore')
+        
+        # Verify date columns exist
+        if 'date_debut' not in fact_location or 'date_fin' not in fact_location:
+            missing = [col for col in ['date_debut', 'date_fin'] if col not in fact_location]
+            raise KeyError(f"Missing date columns: {missing}")
+
+        # Standardize column names (preserve vehicule_id for merge)
+        column_renames = {
+            'location_id': 'rental_id',
+            'vehicle_id': 'vehicule_id',  # Ensure source column is correctly mapped
+            'statut': 'statut_location',
+            'client_id': 'client_key',
+        }
+        fact_location = fact_location.rename(columns=column_renames, errors='ignore')
+        
+        # Create vehicule_key after renaming
+        fact_location['vehicule_key'] = fact_location['vehicule_id']
         
         # Merge branch key from vehicles
         vehicles = raw_data["Vehicles"].rename(columns={
             'vehicle_id': 'vehicule_id',
             'branch_id': 'branch_key'
         }, errors='ignore')
+        
+        # Debugging log
+        logger.info(f"Fact location columns before merge: {fact_location.columns.tolist()}")
         
         fact_location = fact_location.merge(
             vehicles[['vehicule_id', 'branch_key']],
@@ -175,28 +196,6 @@ def transform_data(raw_data):
         
         fact_location.to_parquet(os.path.join(SILVER_DIR, "fact_location.parquet"), index=False)
 
-        # COMPLETELY REMOVE THIS DUPLICATE BLOCK
-        # --- Delete from here ---
-        # Si besoin d'ajouter la dimension branch, vous pouvez la récupérer depuis les véhicules, par exemple:
-        # if "branch_id" in raw_data["Vehicles"].columns:
-        #     # Joindre pour récupérer le branch_id depuis le véhicule
-        #     Vehicles = raw_data["Vehicles"][["vehicule_id", "branch_id"]]
-        #     fact_location = fact_location.merge(Vehicles, on="vehicule_id", how="left")
-        #     fact_location.rename(columns={"branch_id": "branch_key"}, inplace=True)
-        # # Calcul de la durée en heures
-        # fact_location["date_debut"] = pd.to_datetime(fact_location["date_debut"])
-        # fact_location["date_fin"] = pd.to_datetime(fact_location["date_fin"])
-        # fact_location["duree_location"] = (fact_location["date_fin"] - fact_location["date_debut"]).dt.total_seconds() / 3600.0
-        # # Création des clés de dates
-        # fact_location["date_key_debut"] = fact_location["date_debut"].dt.strftime("%Y%m%d").astype(int)
-        # fact_location["date_key_fin"] = fact_location["date_fin"].dt.strftime("%Y%m%d").astype(int)
-        # # Sélection des colonnes pour FACT_LOCATION
-        # fact_location = fact_location[["location_id", "date_key_debut", "date_key_fin", "client_key", "vehicule_key",
-        #                                "branch_key" if "branch_key" in fact_location.columns else "client_key",  # placeholder si branch absent
-        #                                "duree_location", "prix_total", "statut"]]
-        # fact_location.rename(columns={"statut": "statut_location"}, inplace=True)
-        # fact_location.to_parquet(os.path.join(SILVER_DIR, "fact_location.parquet"), index=False)
-        # --- To here ---
 
         # Fait Facture
         # Facture: Factures
@@ -227,7 +226,7 @@ def transform_data(raw_data):
         logging.info(f"Dimension Facture transformée : {fact_facture.head(5)} ")
         fact_facture.to_parquet(os.path.join(SILVER_DIR, "fact_facture.parquet"), index=False)
         logging.info("Dimension Facture sauvegardée au format parquet")
-    
+        
         # Fait Maintenance (ajout de branch_key)
         fact_maintenance = raw_data["entretiens"].copy()
         fact_maintenance["vehicule_key"] = fact_maintenance["vehicule_id"]
@@ -245,6 +244,21 @@ def transform_data(raw_data):
         fact_maintenance["date_key_entretien"] = fact_maintenance["date_entretien"].dt.strftime("%Y%m%d").astype(int)
         fact_maintenance = fact_maintenance[["entretien_id", "vehicule_key", "date_key_entretien", 
                                            "branch_key", "cout", "type_entretien"]]
+
+        # Generate date dimension - FIXED VERSION
+        # Convert integer dates back to datetime format
+        start_date = pd.to_datetime(
+            fact_location['date_key_debut'].astype(str), 
+            format='%Y%m%d'
+        ).min().date()
+        
+        end_date = pd.to_datetime(
+            fact_location['date_key_fin'].astype(str), 
+            format='%Y%m%d'
+        ).max().date()
+        
+        dim_date = generate_dim_date(start_date, end_date)
+        dim_date.to_parquet(os.path.join(SILVER_DIR, "dim_date.parquet"), index=False)
 
         # Return updated dictionary with new dim_paiement
         return {
