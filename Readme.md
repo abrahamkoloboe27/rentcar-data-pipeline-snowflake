@@ -80,6 +80,7 @@ graph TD
 [![Parquet](https://img.shields.io/badge/Apache_Parquet-4EA94B?logo=apacheparquet&logoColor=white)](https://parquet.apache.org)
 [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-1C1C1C?logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org)
 [![Dotenv](https://img.shields.io/badge/Python_Dotenv-ECD53F?logo=python&logoColor=black)](https://pypi.org/project/python-dotenv/)
+[![Apache Superset](https://img.shields.io/badge/Superset-EC6A37?logo=apache&logoColor=white)](https://superset.apache.org/)
 
 ## 🚀 Démarrage Rapide
 
