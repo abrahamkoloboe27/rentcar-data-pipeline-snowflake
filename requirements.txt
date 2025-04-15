@@ -1,0 +1,8 @@
+Faker==37.1.0
+psycopg2-binary==2.9.10
+pyarrow==18.1.0
+pydantic==2.11.3
+pydantic_core==2.33.1
+snowflake-connector-python==3.14.0
+snowflake-sqlalchemy==1.7.3
+SQLAlchemy==2.0.40
