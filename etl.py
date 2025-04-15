@@ -6,8 +6,6 @@ from sqlalchemy import create_engine
 from snowflake.sqlalchemy import URL
 
 load_dotenv()
-# Configuration du système de logs
-# Create logs directory first
 os.makedirs('logs', exist_ok=True)
 
 # Then configure logging
@@ -24,9 +22,9 @@ logger = logging.getLogger(__name__)
 # Répertoires pour sauvegarder les fichiers parquet
 BRONZE_DIR = "bronze"
 SILVER_DIR = "silver"
-GOLD_DIR = "gold"  # Optionnel, par exemple si vous souhaitez garder une copie locale "finale"
+GOLD_DIR = "gold"  
 
-# Création des dossiers si nécessaire
+# Création des dossiers 
 for dossier in [BRONZE_DIR, SILVER_DIR, GOLD_DIR]:
     logging.info(f"Création du dossier {dossier}")
     os.makedirs(dossier, exist_ok=True)
@@ -142,8 +140,8 @@ def transform_data(raw_data):
             'vehicle_id': 'vehicule_id',
             'statut': 'statut_location',
             'client_id': 'client_key',
-            'start_date': 'date_debut',  # Add if source uses different names
-            'end_date': 'date_fin'       # Add if source uses different names
+            'start_date': 'date_debut',  
+            'end_date': 'date_fin'      
         }
         fact_location = fact_location.rename(columns=column_renames, errors='ignore')
         
@@ -155,7 +153,7 @@ def transform_data(raw_data):
         # Standardize column names (preserve vehicule_id for merge)
         column_renames = {
             'location_id': 'rental_id',
-            'vehicle_id': 'vehicule_id',  # Ensure source column is correctly mapped
+            'vehicle_id': 'vehicule_id',  
             'statut': 'statut_location',
             'client_id': 'client_key',
         }
