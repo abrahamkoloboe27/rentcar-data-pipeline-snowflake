@@ -1,166 +1,138 @@
-# 🚗📊 ETL Pipeline pour le Data Warehouse de Location de Véhicules
+# 🚗💾 ETL Pipeline pour le Data Warehouse de Location de Véhicules
 
-Ce projet met en œuvre une chaîne ETL complète pour extraire des données depuis une base de données PostgreSQL, les transformer selon un schéma en étoile (star schema) et les charger dans Snowflake. Le pipeline suit une architecture en **médallion** avec trois niveaux : **Bronze**, **Silver** et **Gold**, garantissant la traçabilité et la qualité des données.
+![ETL Pipeline](https://img.shields.io/badge/ETL-Pipeline-009688?style=for-the-badge&logo=apachespark&logoColor=white)
+![License MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
 
+🌟 **Un pipeline de données complet pour optimiser la gestion des locations de véhicules** 🌟
 
-## Table des Matières
+## 🎯 Table des Matières
 
-| Section                   | Description                                        |
-| ------------------------- | -------------------------------------------------- |
-| [Introduction](#introduction)      | Contexte et objectifs du projet                  |
-| [Architecture](#architecture)      | Schéma en étoile et architecture en médallion    |
-| [Technologies](#technologies)      | Outils et frameworks utilisés                    |
-| [Installation](#installation)      | Pré-requis et configuration environnementale      |
-| [Usage](#usage)                    | Exécution du pipeline ETL et déploiement           |
-| [Structure du Projet](#structure-du-projet)  | Organisation des fichiers et dossiers            |
-| [Configuration](#configuration)    | Paramétrage des connexions et variables d'environnement |
-| [Journalisation](#journalisation)  | Gestion des logs                                   |
-| [Contributeurs](#contributeurs)    | Qui a contribué au projet                          |
-| [Licence](#licence)                | Licence du projet                                  |
+| Section                       | Description                                                      |
+| ----------------------------- | ---------------------------------------------------------------- |
+| [✨ Fonctionnalités](#-fonctionnalités) | Points clés du projet                                          |
+| [🏗 Architecture](#-architecture)      | Structure technique du pipeline                                |
+| [🛠 Technologies](#-technologies)      | Stack technique et badges                                      |
+| [🚀 Démarrage Rapide](#-démarrage-rapide)| Lancer le projet en 2 minutes                                |
+| [📦 Structure du Projet](#-structure-du-projet) | Organisation des fichiers                |
+| [⚙ Configuration](#-configuration)    | Guide de paramétrage détaillé                                  |
 
-## Introduction
+## ✨ Fonctionnalités
 
-Ce projet vise à :
-- **Extraire** les données depuis une base PostgreSQL,  
-- **Transformer** ces données en un format exploitable pour l'analyse (via un schéma en étoile),  
-- **Charger** les données transformées dans Snowflake pour un reporting et une analyse avancée.
+- 🧱 **Architecture Médaille** (Bronze/Silver/Gold) garantissant la qualité des données
+- 🚀 **Extraction haute performance** depuis PostgreSQL
+- 🌟 **Modélisation en étoile** avec dimensions et faits
+- 📊 **Analyse temporelle** avancée via la dimension date
+- 🔒 **Sécurité** grâce à la gestion des variables d'environnement
+- 📈 **Optimisation des coûts** avec stockage Parquet
 
-L'usage de **Parquet** à chaque étape garantit une conservation historique et une traçabilité des données (architecture en médallion).
-
-## Architecture
-
-L'architecture adoptée est à la fois modulaire et performante. Voici un schéma simplifié :
-Diagramme de l'Architecture
+## 🏗 Architecture
 
 ```mermaid
-graph TD
-    A[PostgreSQL (Source)] --> B[Extraction (Bronze)]
-    B --> C[Transformation (Silver)]
-    C --> D[Chargement (Gold) dans Snowflake]
+graph LR
+    A[(📁 PostgreSQL)] -->|Extraction| B[[🟤 Bronze]]
+    B -->|Transformation| C[[⚪ Silver]]
+    C -->|Chargement| D[[🟡 Gold]]
+    D --> E[(❄️ Snowflake)]
 ```
 
-### Schéma en Étoile (Star Schema)
+### 📐 Schéma en Étoile
 
-Les données sont organisées en :
-- **Tables de Dimensions** (clients, véhicules, branches, dates, paiements)
-- **Tables de Faits** (locations, factures, maintenances)
+```mermaid
+pie
+    title Répartition des Tables
+    "Dimensions" : 5
+    "Faits" : 3
+```
 
-| Tables de Dimensions    | Tables de Faits           |
-| ----------------------- | ------------------------- |
-| `DIM_CLIENT`            | `FACT_LOCATION`         |
-| `DIM_VEHICULE`          | `FACT_FACTURE`          |
-| `DIM_BRANCH`            | `FACT_MAINTENANCE`      |
-| `DIM_DATE`              |                           |
-| `DIM_PAIEMENT` (Optionnel)|                           |
+## 🛠 Technologies
 
+[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://python.org)
+[![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)](https://pandas.pydata.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org)
+[![Snowflake](https://img.shields.io/badge/Snowflake-29B5E8?logo=snowflake&logoColor=white)](https://snowflake.com)
+[![Parquet](https://img.shields.io/badge/Apache_Parquet-4EA94B?logo=apacheparquet&logoColor=white)](https://parquet.apache.org)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-1C1C1C?logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org)
+[![Dotenv](https://img.shields.io/badge/Python_Dotenv-ECD53F?logo=python&logoColor=black)](https://pypi.org/project/python-dotenv/)
 
-## Technologies
-
-- **Extraction et Transformation :** Python, Pandas, Polars (optionnel), SQLAlchemy  
-- **Stockage Intermédiaire :** Format Parquet (Bronze, Silver, Gold)  
-- **Chargement :** Snowflake via `snowflake-sqlalchemy`  
-- **Journalisation :** module `logging` de Python  
-- **Environnements & Gestion de Variables :** Dotenv
-
-## Installation
+## 🚀 Démarrage Rapide
 
 ### Prérequis
 
-- Python 3.10+
-- PostgreSQL (base source)
-- Compte Snowflake et accès approprié
-- Environnement virtuel (optionnel mais recommandé)
+- 🐍 Python 3.10+
+- 📦 Paquets requis :
 
-### Installation des dépendances
-
-Exécutez la commande suivante :
 ```bash
-pip install pandas pyarrow sqlalchemy snowflake-sqlalchemy python-dotenv
+pip install -r requirements.txt
 ```
 
-## Usage
+### Configuration Initiale
 
-### Configuration des Variables d'Environnement
+1. Créez votre fichier `.env` :
 
-Créez un fichier `.env` à la racine du projet avec les paramètres suivants :
-```dotenv
-# PostgreSQL
-POSTGRES_URL=postgresql://postgres:postgres@localhost:6543/rentcar
-
-# Snowflake
-SNOWFLAKE_ACCOUNT=<your_account>
-SNOWFLAKE_USER=<your_user>
-SNOWFLAKE_PASSWORD=<your_password>
-SNOWFLAKE_DATABASE=LOCATION_ETL
-SNOWFLAKE_SCHEMA=LOCATION
-SNOWFLAKE_WAREHOUSE=COMPUTE_WH
-SNOWFLAKE_ROLE=<your_role>
+```bash
+cp .env.example .env
 ```
 
-### Exécution du Pipeline ETL
+2. Modifiez les variables d'environnement :
 
-Pour lancer le processus ETL, exécutez :
+```ini
+# 🐘 PostgreSQL
+POSTGRES_URL="postgresql://user:password@localhost:5432/rentcar"
+
+# ❄️ Snowflake
+SNOWFLAKE_ACCOUNT="votre-compte"
+SNOWFLAKE_USER="votre-user"
+SNOWFLAKE_PASSWORD="votre-password"
+```
+
+### Exécution
+
 ```bash
 python etl.py
 ```
-Le script suit les étapes suivantes :
-1. **Extraction (Bronze) :** Récupération des données depuis PostgreSQL et sauvegarde au format Parquet.
-2. **Transformation (Silver) :** Transformation des données en schéma en étoile, création des dimensions et des faits, sauvegarde en Parquet.
-3. **Chargement (Gold) :** Importation des données dans Snowflake avec un contexte configuré via SQL Worksheet.
 
-Les logs sont enregistrés dans le dossier `logs` pour un suivi détaillé.
-
-## Structure du Projet
+## 📦 Structure du Projet
 
 ```plaintext
-├── etl.py                   # Script principal ETL
-├── .env                     # Fichier de configuration (à créer)
-├── logs/                    # Répertoire des logs
-│   └── etl.log              # Journalisation du pipeline
-├── bronze/                  # Données brutes extraites (format Parquet)
-├── silver/                  # Données transformées (format Parquet)
-├── gold/                    # Données chargées dans Snowflake (format Parquet)
-├── README.md                # Ce fichier Readme
-└── requirements.txt         # Liste des dépendances
+📁 location-pipeline-project/
+├── 📁 bronze/      # Données brutes
+├── 📁 silver/      # Données transformées
+├── 📁 gold/        # Données prêtes pour l'analyse
+├── 📜 etl.py       # 🐍 Script principal
+└── 📜 README.md    # 📖 Documentation
 ```
 
-## Configuration
+## ⚙ Configuration Avancée
 
-### Postgres
+### 🔌 Connexion PostgreSQL
 
-- **URL de Connexion :** définie dans `.env` sous `POSTGRES_URL`
-- **Tables Sources :** `Clients`, `Vehicles`, `Branches`, `Locations`, `Factures`, `Entretiens`
+| Paramètre          | Valeur par défaut       |
+|--------------------|-------------------------|
+| `POSTGRES_URL`     | postgresql://user:password@localhost:5432/rentcar |
 
-### Snowflake
+### ❄️ Paramètres Snowflake
 
-- **Paramètres de Connexion :** configurés via `SNOWFLAKE_CONN_PARAMS` dans le script ETL
-- **Schéma Ciblé :** `LOCATION` dans la base `LOCATION_ETL`
-- **Contexte d'Exécution :**
-  - Database : `LOCATION_ETL`
-  - Warehouse : `COMPUTE_WH`
-  - Schéma : `LOCATION`
+| Variable d'Environnement | Description                |
+|--------------------------|----------------------------|
+| `SNOWFLAKE_ACCOUNT`      | Identifiant du compte      |
+| `SNOWFLAKE_WAREHOUSE`    | Entrepôt de calcul         |
 
-## Journalisation
+## 🤝 Contribuer
 
-Les logs détaillés sont générés et stockés dans le dossier `logs/etl.log`. Ils permettent de suivre l'exécution, le succès ou les erreurs des différentes étapes du pipeline ETL. Utilisez ce fichier pour déboguer et surveiller l'état du pipeline.
+[![PRs Welcome](https://img.shields.io/badge/PRs-Welcome-brightgreen?style=flat)](https://makeapullrequest.com)
 
-## Contributeurs
+1. 🍴 Fork le projet
+2. 📥 Clone le repository
+3. ✨ Crée une branche (`git checkout -b feature/ma-fonctionnalité`)
+4. 💾 Fais tes modifications
+5. 📤 Push les changements (`git push origin feature/ma-fonctionnalité`)
+6. 🔄 Ouvre une Pull Request
 
-- **Abraham KOLOBOE** – Data Engineer & Data Scientist  
-  [LinkedIn](https://www.linkedin.com/in/abraham-zacharie-koloboe-data-science-ia-generative-llms-machine-learning/)
+## 📄 Licence
 
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-## Licence
+---
 
-Ce projet est sous licence [MIT](LICENSE).
-
-
-## Remarques Finales
-
-- 💡 **Conseil :** Pour des mises à jour incrémentales ultérieures, considérez l'ajout de mécanismes de CDC (Change Data Capture) ou de batchs incrémentaux.
-- 🚀 **Prochaines étapes :** Implémenter des dashboards interactifs directement dans Snowflake ou via un outil BI (Tableau, Power BI).
-
-
-N'hésitez pas à contribuer ou à proposer des améliorations !
-
-Happy ETL-ing! 🚀✨
+**Fait avec ❤️ par Abraham KOLOBOE**  
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin)](https://www.linkedin.com/in/abraham-zacharie-koloboe-data-science-ia-generative-llms-machine-learning/)
