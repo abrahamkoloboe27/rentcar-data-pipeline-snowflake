@@ -38,11 +38,39 @@ graph LR
 ### 📐 Schéma en Étoile
 
 ```mermaid
-pie
-    title Répartition des Tables
-    "Dimensions" : 5
-    "Faits" : 3
+graph TD
+    %% Dimensions
+    DCL[DIM_CLIENT]:::dim
+    DVH[DIM_VEHICULE]:::dim
+    DBR[DIM_BRANCH]:::dim
+    DDT[DIM_DATE]:::dim
+    DPA[DIM_PAIEMENT]:::dim
+    
+    %% Faits
+    FLOC(FACT_LOCATION):::fact
+    FFAC(FACT_FACTURE):::fact
+    FMAINT(FACT_MAINTENANCE):::fact
+    
+    %% Relations
+    FLOC --> DCL
+    FLOC --> DVH
+    FLOC --> DBR
+    FLOC --> DDT
+    
+    FFAC --> DCL
+    FFAC --> DVH
+    FFAC --> DDT
+    FFAC --> DPA
+    
+    FMAINT --> DVH
+    FMAINT --> DBR
+    FMAINT --> DDT
+
+    classDef dim fill:#4CAF50,color:white
+    classDef fact fill:#2196F3,color:white
+
 ```
+
 
 ## 🛠 Technologies
 
@@ -132,7 +160,6 @@ python etl.py
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
----
 
 **Fait avec ❤️ par Abraham KOLOBOE**  
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?logo=linkedin)](https://www.linkedin.com/in/abraham-zacharie-koloboe-data-science-ia-generative-llms-machine-learning/)
