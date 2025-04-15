@@ -111,11 +111,18 @@ POSTGRES_URL="postgresql://user:password@localhost:5432/rentcar"
 SNOWFLAKE_ACCOUNT="votre-compte"
 SNOWFLAKE_USER="votre-user"
 SNOWFLAKE_PASSWORD="votre-password"
+SNOWFLAKE_DATABASE="votre-database"
+SNOWFLAKE_SCHEMA="votre-schema"
+SNOWFLAKE_WAREHOUSE="votre-warehouse"
 ```
 
 ### Exécution
 
 ```bash
+# Data Generation (PostgreSQL)
+python data_generation.py
+# ETL Pipeline : Bronze -> Silver -> Gold 
+# PostgreSQL -> Snowflake
 python etl.py
 ```
 
@@ -144,6 +151,10 @@ python etl.py
 |--------------------------|----------------------------|
 | `SNOWFLAKE_ACCOUNT`      | Identifiant du compte      |
 | `SNOWFLAKE_WAREHOUSE`    | Entrepôt de calcul         |
+| `SNOWFLAKE_USER`         | Utilisateur Snowflake      |
+| `SNOWFLAKE_PASSWORD`     | Mot de passe Snowflake     |
+| `SNOWFLAKE_DATABASE`     | Base de données Snowflake  |
+| `SNOWFLAKE_SCHEMA`       | Schéma Snowflake          |
 
 ## 🤝 Contribuer
 
