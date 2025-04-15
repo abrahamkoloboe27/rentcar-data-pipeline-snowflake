@@ -52,23 +52,22 @@ graph TD
     FMAINT(FACT_MAINTENANCE):::fact
     
     %% Relations
-    FLOC --> DCL
-    FLOC --> DVH
-    FLOC --> DBR
-    FLOC --> DDT
+    DCL --> FLOC
+    DVH --> FLOC
+    DBR --> FLOC
+    DDT --> FLOC
     
-    FFAC --> DCL
-    FFAC --> DVH
-    FFAC --> DDT
-    FFAC --> DPA
+    DCL --> FFAC
+    DVH --> FFAC
+    DDT --> FFAC
+    DPA --> FFAC
     
-    FMAINT --> DVH
-    FMAINT --> DBR
-    FMAINT --> DDT
+    DVH --> FMAINT
+    DBR --> FMAINT
+    DDT --> FMAINT
 
     classDef dim fill:#4CAF50,color:white
     classDef fact fill:#2196F3,color:white
-
 ```
 
 
